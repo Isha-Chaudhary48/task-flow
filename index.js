@@ -20,14 +20,13 @@ const TodoSchema = new mongoose.Schema({
 
  const Todo = new mongoose.model("Todo",TodoSchema)
 
+ 
+
  //created a router to handle routes instead of directly using apps
  const router = Router();
-router.get('/', (req,res)=>
-{
-    res.send("welcome to homePage")
-})
 
-router.get('/view', (req,res) =>
+
+router.get('/', (req,res) =>
 {
     res.render("index")
 })

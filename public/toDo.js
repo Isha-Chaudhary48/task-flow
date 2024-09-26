@@ -12,11 +12,12 @@ let Add=()=>{
         }
         else{
           
-             let addContent=document.createElement("ul");
-            const iDelete=document.createElement("div");
+             let addContent=document.createElement("div");
+             addContent.className="taskItem";
           
-            addContent.innerHTML=`${input.value} <i class="fa-solid fa-trash"></i>`; 
+            addContent.innerHTML=`<p>${input.value}</p> <i class="fa-solid fa-trash"></i>`; 
             addContent.style.backgroundColor="white";
+            
               
              taskLists.appendChild(addContent);
              input.value="";
