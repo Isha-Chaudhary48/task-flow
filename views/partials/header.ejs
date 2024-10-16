@@ -11,20 +11,23 @@
     <title>To - do list</title>
   </head>
   <body>
-    <div class="container">
-      <h1 class="heading">Todo List</h1>
+    <form id="todoForm" action="http://localhost:3000/submit" method="post">
+      <div class="container">
+        <h1 class="heading">Todo List</h1>
 
-      <div class="input">
-        <input
-          id="inputWork"
-          type="text"
-          placeholder="Enter What you want to do"
-        />
-        <button onclick="Add()" id="addContent">Add</button>
+        <div class="input">
+          <input
+            id="inputWork"
+            type="text"
+            name="toDo"
+            placeholder="Enter What you want to do"
+          />
+          <button onclick="Add()" id="addContent" type="button">Add</button>
+        </div>
+
+        <div id="taskLists"></div>
       </div>
-
-      <div id="taskLists"></div>
-    </div>
+    </form>
 
     <script src="toDo.js"></script>
   </body>

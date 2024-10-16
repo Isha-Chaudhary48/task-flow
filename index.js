@@ -4,6 +4,7 @@ import { Router } from "express";
 
 //configuring express
 const app = express();
+app.use(express.json())//middleware to interpret json
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.static("public"))
@@ -19,6 +20,21 @@ const TodoSchema = new mongoose.Schema({
 });
 
  const Todo = new mongoose.model("Todo",TodoSchema)
+
+ app.post('/submit',async(req,res)=>
+{
+    try{
+        const{toDo}=req.body;
+        const userInput = new Todo({ toDo});
+        await userInput.save();
+        res.status(201).send('data saved successfully');
+
+    }
+    catch(error)
+    {
+        res.status(500).send('error saving data');
+    }
+})
 
  
 

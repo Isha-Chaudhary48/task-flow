@@ -18,9 +18,10 @@ let Add=()=>{
             addContent.innerHTML=`<p>${input.value}</p> <i class="fa-solid fa-trash"></i>`; 
             addContent.style.backgroundColor="white";
             
-              
+            
              taskLists.appendChild(addContent);
              input.value="";
+             document.getElementById('todoForm').value ='';
              addContent.querySelector("i").addEventListener("click",remove);
              function remove(){
              addContent.remove();
