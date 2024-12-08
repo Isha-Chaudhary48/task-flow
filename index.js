@@ -1,63 +1,25 @@
 import express from "express";
-import mongoose from "mongoose";
-import { Router } from "express";
+import connetionMongoDb from "./connection.js";
+import apiRouter from "./routes/user.js";
+import htmlRouter from "./routes/html.js";
 
-//configuring express
 const app = express();
-app.use(express.json())//middleware to interpret json
+connetionMongoDb("mongodb://localhost:27017/mydb");
 
-app.use(express.urlencoded({extended: true}))
-app.use(express.static("public"))
-app.set("view engine","ejs")
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
-//configuring mongodb
-const TodoSchema = new mongoose.Schema({
-    toDo :
-    {
-        type : String,
-        required : true,
-    },
-});
+app.use("/todo", apiRouter);
+app.use("/", htmlRouter);
 
- const Todo = new mongoose.model("Todo",TodoSchema)
+app.listen(3000, () => console.log("server started listening"));
 
- app.post('/submit',async(req,res)=>
-{
-    try{
-        const{toDo}=req.body;
-        const userInput = new Todo({ toDo});
-        await userInput.save();
-        res.status(201).send('data saved successfully');
-
-    }
-    catch(error)
-    {
-        res.status(500).send('error saving data');
-    }
-})
-
- 
-
- //created a router to handle routes instead of directly using apps
- const router = Router();
-
-
-router.get('/', (req,res) =>
-{
-    res.render("index")
-})
-app.use(router)
-
-
-
-
-//turning on the server
-mongoose.connect('mongodb://localhost:27017/mydb')
-.then(() => {
-    console.log('connected to mongDB');
-})
-.catch((err) =>{
-    console.error('connection failed ', err)
-})
-
-app.listen(3000,()=> console.log("server started listening"))
+//1. Importing libraries to set up the server and database.
+//2.  Configuring Express to handle data and show web pages.
+//3.  Defining the schema for storing to-do items in the database.
+//4.  Handling routes so users can view the homepage and submit new to-dos.
+//5. Connecting to MongoDB to save the to-do items.
+//6.  Starting the server so it can listen for requests on port 3000.
