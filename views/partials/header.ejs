@@ -11,7 +11,7 @@
     <title>To - do list</title>
   </head>
   <body>
-    <form id="todoForm" action="http://localhost:3000/submit" method="post">
+    <form id="todoForm" action="/todo" method="post">
       <div class="container">
         <h1 class="heading">Todo List</h1>
 
@@ -22,12 +22,29 @@
             name="toDo"
             placeholder="Enter What you want to do"
           />
-          <button onclick="Add()" id="addContent" type="button">Add</button>
+          <button onclick="Add(e)" id="addContent" type="submit">Add</button>
+        </div>
+    </form>
+
+    <div id="taskLists">
+      <% todos.forEach(todo => { %>
+        <form action="/todo/delete/<%= todo._id %>" method="get">
+          <div
+          class="taskItem"
+          data-id="<%= todo._id %>"
+          style="background-color: white; display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 10px;"
+        >
+          <p style="margin: 0;"><%= todo.toDo %></p>
+         <button type="submit">
+          <i class="fa-solid fa-trash" style="color: rgb(12, 12, 12); cursor: pointer;"></i>
+        </button> 
         </div>
 
-        <div id="taskLists"></div>
-      </div>
-    </form>
+        </form>
+        
+      <% }); %>
+    </div>
+    
 
     <script src="toDo.js"></script>
   </body>
